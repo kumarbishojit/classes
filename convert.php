@@ -241,5 +241,5 @@ class convert{
 		return "https://www.youtube.com/watch?v=$code";
 	}
 }
-$convert		= new convert;
+$convert		= new convert; 
 ?>
