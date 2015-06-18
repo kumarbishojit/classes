@@ -1,6 +1,6 @@
 var cache = {};
-function liveSearch(jsonLink){
-	$("#birds").autocomplete({
+function liveSearch(searchId, jsonLink){
+	$("#"+searchId).autocomplete({
 		minLength: 1,
 		source: function(request, response){
 			var term = request.term;
@@ -17,3 +17,4 @@ function liveSearch(jsonLink){
 	});
 };
 //liveSearch("searchJson.php");
+//<div class=\"\"><label for=\"search\">Search: </label><input id=\"search\"></div>
