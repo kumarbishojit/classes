@@ -89,6 +89,24 @@ class user{
 			return false;
 		}
 	}
+	function permission($usl, $type="all"){ //all, group, individual
+		global $query;
+		//--Collect User Group Alocation
+		if($perm_info_ar=$query->byKey("SELECT `user_group`.`group_perm`, `user_group_alocate`.`extra_perm` FROM `user_group_alocate`, `user_group` WHERE `user_group_alocate`.`usl`='$usl' AND `user_group_alocate`.`ugroupsl`=`user_group`.`sl`"))
+		foreach($perm_info_ar as $det_ar){
+			if(($type=="all" || $type=="group") && $permGroup_ar=explode(";/;", $det_ar['group_perm']))//Group
+			foreach($permGroup_ar as $det){
+				$out_ar[$det]=$det;
+			}
+			
+			if(($type=="all" || $type=="individual") && $permExt_ar=explode(";/;", $det_ar['extra_perm'])) //Extra
+			foreach($permExt_ar as $det){
+				$out_ar[$det]=$det;
+			}
+		}
+		unset($out_ar['']);
+		return $out_ar;
+	}
 }
 $user		= new user;
 ?>
