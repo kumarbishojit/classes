@@ -32,7 +32,7 @@ function buildPop(id, actionLink, parameters){
 		div.setAttribute("style", "background:#F9F9F9; position:fixed; right:0px; left:0px; margin:0px auto; width:90%; max-width:1000px; height:90%; top:50%; transform:scale(.5, .5) translate(0%, -100%); -moz-transition: All .3s; -webkit-transition: All .3s; transition: All .3s; border:1px solid #DDD; box-shadow: 0px 0px 3px #FFF; z-index:101;");
 		div.setAttribute("id", id);
 		div.setAttribute("class", "pop_show");
-		div.innerHTML="<div style=\"border-bottom:1px solid #999; font-size:16px;padding: 10px 10px 3px 10px;background: #DDD;\"><span name=\"popExit\" class=\"button\" style=\"float:right; color: #fff; background-color: #f1353d; border-color: #ec111b;\" onclick=\"buildMsgdivClose('"+id+"');\"><i class=\"fa fa-times-circle\"></i> Exit</i></span><span id='title_details_"+id+"' style=\"line-height: 33px;\">"+title+" </span> : &nbsp;</div><div id='details_"+id+"' style='margin:10px; font-size:16px; overflow: auto; height: 440px;'>Loading...</div>";
+		div.innerHTML="<div style=\"border-bottom:1px solid #999; font-size:16px;padding: 10px 10px 3px 10px;background: #DDD;\"><button name=\"popExit\" class=\"btn red\" style=\"float:right; padding: 5px 10px;\" onclick=\"buildMsgdivClose('"+id+"');\"><i class=\"fa fa-times-circle\"></i> Exit</i></button><span id='title_details_"+id+"' style=\"line-height: 33px;\">"+title+" </span> : &nbsp;</div><div id='details_"+id+"' style='margin:10px; font-size:16px; overflow: auto; height: 440px;'>Loading...</div>";
 		
 		//--Append DIV
 		document.body.appendChild(div);
@@ -90,4 +90,3 @@ function liveSearch(searchId, jsonLink){
 		}
 	});
 };
-
