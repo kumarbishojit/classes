@@ -13,7 +13,8 @@ function objId(id){
 	return document.getElementById(id);
 }
 
-//--Build Pop
+
+//##Build Pop-Start########################################################################
 var title="Title";
 function buildPop(id, actionLink, parameters){
 	
@@ -67,8 +68,23 @@ function buildMsgdivClose(id){
 	}, 150);
 	//return false;
 }
-
-
+//--Remove Popup On ESC Press
+function escPopClose(){
+	unicode =event.keyCode? event.keyCode : event.charCode;
+	if(unicode==27){// U=85, C=67, I=73, 47=0, 48=1, 49=2, ........, 13=Enter, 27=ESC;
+		objLength=document.getElementsByName('popExit').length;
+		
+		if(document.getElementsByName("popExit")[objLength-1])
+		document.getElementsByName("popExit")[objLength-1].click();
+	}
+}
+//--Installation (Placed on Index)
+//window.onkeyup=function(){
+//	escPopClose();
+//	//--Code Goes Here
+//	//--Code Goes Here
+//}
+//##Build Pop-End########################################################################
 
 //liveSearch("searchJson.php");
 //<div class=\"\"><label for=\"search\">Search: </label><input id=\"search\"></div>
