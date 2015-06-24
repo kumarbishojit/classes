@@ -171,3 +171,21 @@ function liveSearch(searchId, jsonLink){
 		}
 	});
 };
+
+//--Tools Function CK Editor
+function ckEditorFull(id){
+	CKEDITOR.plugins.addExternal( 'onchange', 'onchange/' );
+	var config = { extraPlugins: 'onchange'};
+	CKEDITOR.on('instanceCreated', function (e) {
+		if (!e.editor.id) 
+		alert('Unknown Textarea ID');
+		
+		e.editor.on('change', function (ev) {
+			if(document.getElementById(id))
+			document.getElementById(id+"_test").value=ev.editor.getData()//
+		});
+	});
+	CKEDITOR.replace(id);
+}
+//--Calling CK Editor
+//ckEditorFull('editor1');
