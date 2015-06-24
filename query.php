@@ -132,7 +132,7 @@ class query{
 			//--Default
 			if(!$post_ar['ip']) 	$post_ar['ip']=USER_IP;
 			if(!$post_ar['time']) 	$post_ar['time']=TIME;
-			if(!$post_ar['oprtr']) 	$post_ar['oprtr']=$_SESSION['user_sl'];
+			if(!$post_ar['oprtr']) 	$post_ar['oprtr']=$_SESSION['userSl'];
 			
 			//--Creating Queryes
 			foreach($post_ar as $key => $val){
@@ -168,7 +168,7 @@ class query{
 				//--Default
 				if(!$post_ar['ip']) 	$post_ar['ip']=USER_IP;
 				if(!$post_ar['time']) 	$post_ar['time']=TIME;
-				if(!$post_ar['oprtr']) 	$post_ar['oprtr']=$_SESSION['user_sl'];
+				if(!$post_ar['oprtr']) 	$post_ar['oprtr']=$_SESSION['userSl'];
 				ksort($post_ar);
 			
 				foreach($post_ar as $key => $val){
