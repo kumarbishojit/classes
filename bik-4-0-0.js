@@ -86,6 +86,71 @@ function escPopClose(){
 //}
 //##Build Pop-End########################################################################
 
+//--AJAX Pageload
+function ajaxPageLoad(dispId, actionLink, parameters){
+	parameters +="&dispId="+dispId;
+	parameters +="&actionLink="+actionLink;
+	parameters +="&bik=1";
+	
+	//--Creating Progress DIV
+	if(!document.getElementById('progress_div')){
+		var divProg = document.createElement("div");
+		divProg.setAttribute("id", "progress_div");
+		divProg.setAttribute("style", "position: fixed; bottom:0px; height:5px; width:100%; overflow:hidden; background:#F90; transition: All 1s;  z-index:20001;");
+		divProg.innerHTML="<div id='progress_st' style='background:#090; width:0%; transition: All .5s;'>&nbsp;</div>";
+		document.body.appendChild(divProg);
+	}
+	
+	var xhr = new XMLHttpRequest();
+	if (xhr.upload) {
+		xhr.addEventListener("progress", function(e){
+			if (e.lengthComputable) {
+				var percentComplete = e.loaded * 100 / e.total;
+				var t=setTimeout(function(){
+					if(document.getElementById('progress_st'))
+					document.getElementById('progress_st').style.width=percentComplete+"%";
+				}, 1000);
+			} else {
+				// Unable to compute progress information since the total size is unknown
+			}
+		}, false);
+		
+		xhr.onreadystatechange = function(ev){
+			if (xhr.readyState == 4) {
+				if(xhr.status == 200){//Yes
+					//--Response Text Output
+					var respAr=xhr.responseText.split(";///;");
+					if(respAr[0] && document.getElementById(dispId))
+					document.getElementById(dispId).innerHTML=respAr[0];
+					if(respAr[1])
+					eval(respAr[1]);
+					
+					if(divProg && divProg.parentNode){
+						var t=setTimeout(function(){
+							//--Clearing divProg
+							divProg.parentNode.removeChild(divProg);
+						}, 2000);
+					}
+				}
+				else{//No
+					if(divProg && divProg.parentNode){
+						divProg.style.backgroundColor="#F00";
+						var t=setTimeout(function(){
+							//--Clearing divProg
+							divProg.parentNode.removeChild(divProg);
+						}, 2000);
+					}
+				}
+			}
+		};
+ 
+		xhr.open('POST', actionLink, true);
+		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhr.send(parameters);
+	}
+	return false;
+}
+
 //liveSearch("searchJson.php");
 //<div class=\"\"><label for=\"search\">Search: </label><input id=\"search\"></div>
 var cache = {};
