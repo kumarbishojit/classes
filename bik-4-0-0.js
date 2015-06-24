@@ -182,7 +182,7 @@ function ckEditorFull(id){
 		
 		e.editor.on('change', function (ev) {
 			if(document.getElementById(id))
-			document.getElementById(id+"_test").value=ev.editor.getData()//
+			document.getElementById(id).value=ev.editor.getData()//
 		});
 	});
 	CKEDITOR.replace(id);
