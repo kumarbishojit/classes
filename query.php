@@ -279,6 +279,11 @@ class query{
 		}
 		return $out_ar;
 	}
+	function recentEntry($tbl){
+		$tbl_ar=explode("`.`", $tbl);
+		$row_info_ar=$this->byKey("SELECT * FROM `$tbl` WHERE `ip`='".USER_IP."' AND `time`='".TIME."' AND `oprtr`='$_SESSION[userSl]' ORDER BY `".($tbl_ar[1]?$tbl_ar[1]:$tbl_ar[0])."`.`sl` DESC LIMIT 1");
+		return $row_info_ar[0];
+	}
 }
 $query		= new query;
 ?>
