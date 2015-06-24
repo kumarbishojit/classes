@@ -1,3 +1,48 @@
 *[onclick]{
 	cursor:pointer;
 }
+/*  Form Div Styles  */
+.popDiv1{
+	padding:2px;
+	max-width:350px;
+	width:95%;
+	float:left;
+	font-size:
+}
+.popDiv1 input[type='text']{
+	width:93%;
+	border:1px solid #999;
+	padding:0px 1%;
+	height:28px;
+	font-size:20px;
+	outline:none;
+}
+.popDiv1 select{
+	width:95.5%;
+	border:1px solid #999;
+	padding:0px;
+	height:30px;
+	font-size:20px;
+	outline:none;
+}
+
+.popDiv2{
+	padding:2px;
+	max-width:700px;
+	width:95%;
+	float:left;
+}
+.popDiv2 input[type='text'], .popDiv2 input[type='password']{
+	width:96%;
+	padding:1%
+}
+.popDiv2 textarea{
+	width:96%;
+	padding:1%
+}
+.subTitle{
+	height:50px;
+}
+.title{
+	height:200px;
+}
