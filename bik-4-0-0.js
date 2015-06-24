@@ -151,6 +151,101 @@ function ajaxPageLoad(dispId, actionLink, parameters){
 	return false;
 }
 
+//--Ajax Form Load
+function ajaxForm(frm, dispId){ // resp, js, form_act
+	var parameters="";
+	for (var i = 0; i < (frm.elements.length); i++){
+		if(frm.elements[i].type=='checkbox'){
+			if(frm.elements[i].checked==true)
+			parameters +=frm.elements[i].name+"="+encodeURIComponent(frm.elements[i].value)+"&";
+			else
+			parameters +=frm.elements[i].name+"=&";
+		}
+		else if(frm.elements[i].type=='radio'){
+			if(frm.elements[i].checked==true)
+			parameters +=frm.elements[i].name+"="+encodeURIComponent(frm.elements[i].value)+"&";
+		}
+		else{
+			parameters +=frm.elements[i].name+"="+encodeURIComponent(frm.elements[i].value)+"&";
+		}
+	}
+	parameters +="frmId="+frm.id+"&";
+	parameters +="dispId="+dispId+"&";
+	parameters +="bik=1";
+	
+	//--Creating Progress DIV
+	if(!document.getElementById('progress_div')){
+		var div_prog = document.createElement("div");
+		div_prog.setAttribute("id", "progress_div");
+		div_prog.setAttribute("style", "position: fixed; bottom:0px; height:5px; width:100%; overflow:hidden; background:#F90; transition: All 1s;  z-index:20001;");
+		div_prog.innerHTML="<div id='progress_st' style='background:#090; width:0%; transition: All .5s;'>&nbsp;</div>";
+		document.body.appendChild(div_prog);
+	}
+	
+	var xhr = new XMLHttpRequest();
+	if (xhr.upload) {
+		xhr.addEventListener("progress", function(e){
+			if (e.lengthComputable) {
+				var percentComplete = e.loaded * 100 / e.total;
+				var t=setTimeout(function(){
+					if(document.getElementById('progress_st'))
+					document.getElementById('progress_st').style.width=percentComplete+"%";
+				}, 1000);
+			} else {
+				// Unable to compute progress information since the total size is unknown
+			}
+		}, false);
+		
+		xhr.onreadystatechange = function(ev){
+			if (xhr.readyState == 4) {
+				if(xhr.status == 200){//Yes
+					//--Response Text Output
+					var resp_ar=xhr.responseText.split(";///;");
+					if(resp_ar[0] && document.getElementById(dispId))
+					document.getElementById(dispId).innerHTML=resp_ar[0];
+					if(resp_ar[1])
+					eval(resp_ar[1]);
+					if(resp_ar[2]!="form_success")
+					form_act(frm, 'enable');
+					
+					if(div_prog && div_prog.parentNode){
+						var t=setTimeout(function(){
+							//--Clearing div_prog
+							if(div_prog && div_prog.parentNode)
+							div_prog.parentNode.removeChild(div_prog);
+						}, 2000);
+					}
+				}
+				else{//No
+					if(div_prog && div_prog.parentNode){
+						div_prog.style.backgroundColor="#F00";
+						var t=setTimeout(function(){
+							//--Clearing div_prog
+							div_prog.parentNode.removeChild(div_prog);
+						}, 2000);
+					}
+				}
+			}
+		};
+ 
+		xhr.open('POST', frm.action, true);
+		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhr.send(parameters);
+	}
+	form_act(frm, 'disable');
+	return false;
+}
+//--Form Activation
+function form_act(frm, act){ //act=disable, enable
+	var elements = frm.elements;
+	for (var i = 0, len = elements.length; i < len; ++i) {
+		if(act=="disable")
+		elements[i].disabled = true;
+		else if(act=="enable")
+		elements[i].disabled = false;
+	}
+}
+
 //liveSearch("searchJson.php");
 //<div class=\"\"><label for=\"search\">Search: </label><input id=\"search\"></div>
 var cache = {};
