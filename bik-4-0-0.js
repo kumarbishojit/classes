@@ -171,6 +171,7 @@ function ajaxForm(frm, dispId){ // resp, js, form_act
 	}
 	parameters +="frmId="+frm.id+"&";
 	parameters +="dispId="+dispId+"&";
+	parameters +="actionLink="+frm.action+"&";
 	parameters +="bik=1";
 	
 	//--Creating Progress DIV
