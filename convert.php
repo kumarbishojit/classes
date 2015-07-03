@@ -240,6 +240,9 @@ class convert{
 	function youtubeCodeToLink($code){
 		return "https://www.youtube.com/watch?v=$code";
 	}
+	function escStr($input){
+		return mysql_real_escape_string($input);
+	}
 }
 $convert		= new convert; 
 ?>
