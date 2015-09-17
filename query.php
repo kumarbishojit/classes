@@ -107,7 +107,7 @@ class query{
 						$values_all_ar[$col]['tsl']=$sl;
 						$values_all_ar[$col]['oldVal']=$oldVal;
 					}
-					$this->insart_all("history", $values_all_ar);
+					$this->insert_all("history", $values_all_ar);
 				}
 				$msg="OK";
 				return true;
@@ -118,14 +118,14 @@ class query{
 			}
 		}
 	}
-	function insart_one($table, $post_ar){
+	function insert_one($table, $post_ar){
 		global $msg;
 		if(!$table){
-			$msg="No Table Name on query->insart_one";
+			$msg="No Table Name on query->insert_one";
 			return false;
 		}
 		else if(!is_array($post_ar)){
-			$msg="Post Error on query->insart_one";
+			$msg="Post Error on query->insert_one";
 			return false;
 		}
 		else{
@@ -145,20 +145,20 @@ class query{
 				return true;
 			}
 			else{
-				$msg="MySql Query ($l) Error on query->insart_one";
+				$msg="MySql Query ($l) Error on query->insert_one";
 				return false;
 			}
 		}
 	}
-	function insart_all($table, $post_all_ar){
+	function insert_all($table, $post_all_ar){
 		global $msg;
 		
 		if(!$table){
-			$msg="No Table Name on query->insart_all";
+			$msg="No Table Name on query->insert_all";
 			return false;
 		}
 		else if(!is_array($post_all_ar)){
-			$msg="Post Error on query->insart_all";
+			$msg="Post Error on query->insert_all";
 			return false;
 		}
 		else{
@@ -185,7 +185,7 @@ class query{
 				return true;
 			}
 			else{
-				$msg="MySql Query ($l) Error on query->insart_one";
+				$msg="MySql Query ($l) Error on query->insert_one";
 				return false;
 			}
 		}
