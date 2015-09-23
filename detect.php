@@ -4,7 +4,7 @@ class detect{
 		$user_agent=$_SERVER['HTTP_USER_AGENT'];
 		
 		$os_array    = array(
-      '/windows nt 10.0/i'    =>  'Windows-10',
+      			'/windows nt 10.0/i'    =>  'Windows-10',
 			'/windows nt 6.3/i'     =>  'Windows-8.1',
 			'/windows nt 6.2/i'     =>  'Windows-8',
 			'/windows nt 6.1/i'     =>  'Windows-7',
@@ -63,18 +63,18 @@ class detect{
 		$user_agent=$_SERVER['HTTP_USER_AGENT'];
 		
 		$browser_array = array(
-			'/opr/i'          =>  'Opera',
-			'/opera/i'        =>  'Opera',
-			'/msie/i'         =>  'IE',
-			'/firefox/i'      =>  'Firefox',
-			'/nokia/i'        =>  'Nokia',
-			'/chrome/i'       =>  'Chrome',
-			'/trident/i'      =>  'Trident',
-			'/mqqbrowser/i'   =>  'MQQBrowser',
+			'/opr/i'          		=>  'Opera',
+			'/opera/i'        		=>  'Opera',
+			'/msie/i'         		=>  'IE',
+			'/firefox/i'      		=>  'Firefox',
+			'/nokia/i'        		=>  'Nokia',
+			'/chrome/i'       		=>  'Chrome',
+			'/trident/i'      		=>  'Trident',
+			'/mqqbrowser/i'   		=>  'MQQBrowser',
 			
-			'/netscape/i'     =>  'Netscape',
-			'/maxthon/i'      =>  'Maxthon',
-			'/konqueror/i'    =>  'Konqueror',
+			'/netscape/i'   		=>  'Netscape',
+			'/maxthon/i			=>  'Maxthon',
+			'/konqueror/i			=>  'Konqueror',
 			'/safari/i'			=>  'Safari',
 			'/mobile/i'			=>  'Handheld Browser',
 			'/google/i'       		=>  'Google Bot',
@@ -95,83 +95,5 @@ class detect{
 		}
 		return $user_agent;
 	}
-	function pc(){
-		global $convart;
-		global $query;
-		
-		$time=TIME;
-		$ip=USER_IP;
-		
-		$os=$this->os();
-		$browser=$this->browser();
-		
-		$pcSl=$_COOKIE['pcSl'];
-		$oprtr=$_COOKIE['oprtr_val'];
-		
-		$country=$_COOKIE['country'];
-		$city=$_COOKIE['city'];
-		$region=$_COOKIE['region'];
-		
-		//--Collect From DB
-		if($pc_info_ar=$query->byKey("SELECT * FROM `pc_detect` WHERE (`os`='$os' AND `ip`='$ip') OR (`oprtr`='$oprtr' AND `oprtr`!=0) OR (`sl`='$pcSl') ORDER BY `pc_detect`.`sl` DESC LIMIT 1")){
-			//--Update DB
-			$in_ar['browser']=$browser;
-			$in_ar['os']=$os;
-			$in_ar['country']=$country;
-			$in_ar['city']=$city;
-			$in_ar['region']=$region;
-			$in_ar['ip']=$ip;
-			$in_ar['oprtr']=$oprtr;
-			$query->update("pc_detect", $in_ar, $pc_info_ar[0]['sl']);
-			
-			//--Update Cookie
-			setcookie("pcSl", $pc_info_ar[0]['sl'], ($time+3600*24*365), '/', 'nufa-ad.com', false);
-			if($pc_info_ar[0]['oprtr'])
-			setcookie("oprtr_val", $pc_info_ar[0]['oprtr'], ($time+3600*24*365), '/', 'nufa-ad.com', false);
-		}
-		//--Record ON DB
-		else{
-			$in_ar['browser']=$browser;
-			$in_ar['os']=$os;
-			$in_ar['country']=$country;
-			$in_ar['city']=$city;
-			$in_ar['region']=$region;
-			
-			if($query->insart_one("pc_detect", $in_ar)){
-				$pc_info_ar=$query->byKey("SELECT * FROM `pc_detect` WHERE (`os`='$os' AND `ip`='$ip') OR (`oprtr`='$oprtr' AND `oprtr`!=0) OR (`sl`='$pcSl') ORDER BY `pc_detect`.`sl` DESC LIMIT 1");
-			
-				//--Update Cookie
-				setcookie("pcSl", $pc_info_ar[0]['sl'], ($time+3600*24*365), '/', 'nufa-ad.com', false);
-				if($pc_info_ar[0]['oprtr'])
-				setcookie("oprtr_val", $pc_info_ar[0]['oprtr'], ($time+3600*24*365), '/', 'nufa-ad.com', false);
-			}
-		}
-	}
-	function pcUpdate(){
-		global $convart;
-		global $query;
-		
-		$time=TIME;
-		$ip=USER_IP;
-		
-		$os=$this->os();
-		$browser=$this->browser();
-		
-		$pcSl=$_COOKIE['pcSl'];
-		$oprtr=$_COOKIE['oprtrSl'];
-		
-		//--Update DB
-		$in_ar['oprtr']=$oprtr;
-		$query->update("pc_detect", $in_ar, $pcSl);
-		
-		//--Cookie Update
-		if($_COOKIE['oprtrSl'])
-		setcookie("oprtr_val", $_COOKIE['oprtrSl'], ($time+3600*24*365), '/', 'nufa-ad.com', false);
-	}
-	/*function pcDestroy(){
-		if()
-		
-		
-	}*/
 }
 $detect = new detect;
