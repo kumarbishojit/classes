@@ -44,8 +44,14 @@ class tm{
 		
 		return $convert->date2int($date, TIME)+24*3600-1;
 	}
-	function Ymd2date($in){
+	function Ymd2Date($in){
 		return substr($in, 6, 2)."/".substr($in, 4, 2)."/".substr($in, 0, 4);
+	}
+	function Ymd2DayStart($in){
+		return strtotime($in);
+	}
+	function Ymd2DayEnd($in){
+		return strtotime($in)+24*3600-1;
 	}
 	function yearStart($year=false){
 		global $convert;
