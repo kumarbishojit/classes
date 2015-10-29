@@ -1,5 +1,8 @@
 <?php
 class query{
+	function str($str){
+		return mysql_query($str);
+	}
 	function byKey($query_str, $key=""){
 		global $msg;
 		
