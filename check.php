@@ -23,7 +23,7 @@ class check{
 			return true;
 		}
 	}
-	function date_str($date, $title){
+	function dateStr($date, $title){
 		global $msg;
 		$date_ar=explode("/", $date);
 		
