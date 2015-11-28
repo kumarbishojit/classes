@@ -129,6 +129,17 @@ class check{
 		$msg="OK";
 		return false;
 	}
+	function numberGrouping($number, $groupVal_ar){
+		if(!is_array($groupVal_ar))
+		return false;
+		
+		sort($groupVal_ar);
+		foreach($groupVal_ar as $key=>$val){
+			if($val>=$number)
+			return $groupVal_ar[$key];
+		}
+		return "#";
+	}
 }
 $check	= new check;
 ?>
