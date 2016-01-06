@@ -207,13 +207,13 @@ class query{
 	}
 	function listAllGlobal($type_hash){  //  #education#abc#def
 		global $global_listing_all_ar, $userInfo_ar, $l;
-		unset($global_listing_all_ar);
+		$global_listing_all_ar=false;
 		
-		$row_all_ar=$this->byKey($l="SELECT * FROM `".DB_USER."`.`list` WHERE (`orgSl`='10000000' OR `orgSl`='$userInfo_ar[orgSl]') AND (`type`='".str_replace("#", "' OR `type`='", $type_hash)."') AND `st`='act'");
+		$row_all_ar=$this->byKey($l="SELECT * FROM `".DB_USER."`.`list` WHERE (`orgSl`='10000000' OR `orgSl`='$userInfo_ar[orgSl]') AND (`type`='".str_replace("#", "' OR `type`='", $type_hash)."') AND `st`='act' ORDER BY `list`.`priority` ASC");
 		
 		if($row_all_ar)
 		foreach($row_all_ar as $det_ar){
-			$global_listing_all_ar[$det_ar['type']][]=$det_ar;
+			$global_listing_all_ar[$det_ar['type']][$det_ar['keyTxt']]=$det_ar;
 		}
 		
 		if($row_all_ar)
@@ -225,14 +225,14 @@ class query{
 		global $global_listing_all_ar, $userInfo_ar, $l;
 		
 		if(!$global_listing_all_ar[$type])
-		$global_listing_all_ar[$type]=$this->byKey($l="SELECT * FROM `".DB_USER."`.`list` WHERE (`orgSl`='10000000' OR `orgSl`='$userInfo_ar[orgSl]') AND `type`='$type' AND `st`='act'");
+		$global_listing_all_ar[$type]=$this->byKey($l="SELECT * FROM `".DB_USER."`.`list` WHERE (`orgSl`='10000000' OR `orgSl`='$userInfo_ar[orgSl]') AND `type`='$type' AND `st`='act' ORDER BY `list`.`priority` ASC", "keyTxt");
 		return $global_listing_all_ar[$type];
 	}
 	function listToFull($type, $key, $col='val'){
 		global $global_listing_all_ar, $userInfo_ar, $l;
 		
 		if(!$global_listing_all_ar[$type])
-		$global_listing_all_ar[$type]=$this->byKey($l="SELECT * FROM `".DB_USER."`.`list` WHERE (`orgSl`='10000000' OR `orgSl`='$userInfo_ar[orgSl]') AND `type`='$type' AND `st`='act'", "keyTxt");
+		$global_listing_all_ar[$type]=$this->byKey($l="SELECT * FROM `".DB_USER."`.`list` WHERE (`orgSl`='10000000' OR `orgSl`='$userInfo_ar[orgSl]') AND `type`='$type' AND `st`='act' ORDER BY `list`.`priority` ASC", "keyTxt");
 		
 		$global_listing_all_ar[$type]['$key'][$col];
 	}
