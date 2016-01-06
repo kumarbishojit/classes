@@ -287,6 +287,28 @@ class query{
 		$row_info_ar=$this->byKey("SELECT * FROM `$tbl` WHERE `ip`='".USER_IP."' AND `time`='".TIME."' AND `oprtr`='$_SESSION[userSl]' ORDER BY `".($tbl_ar[1]?$tbl_ar[1]:$tbl_ar[0])."`.`sl` DESC LIMIT 1");
 		return $row_info_ar[0];
 	}
+	function saveLog($tbl, $message){
+		$in_ar['tbl']=$tbl;
+		$in_ar['col']="saveLog";
+		$in_ar['tsl']=0;
+		$in_ar['oldVal']=$message;
+		$this->insertOne(DB_USER."`.`history", $in_ar);
+	}
+	function listDropDown($type){
+		global $global_listing_all_ar;
+		
+		if(!$global_listing_all_ar[$type])
+		$global_listing_all_ar[$type]=$this->byKey("SELECT * FROM `".DB_USER."`.`list` WHERE (`orgSl`='10000000' OR `orgSl`='$userInfo_ar[orgSl]') AND `type`='$type' AND `st`='act'");
+		return $global_listing_all_ar[$type];
+	}
+	function listToFull($type, $key, $col='val'){
+		global $global_listing_all_ar;
+		
+		if(!$global_listing_all_ar[$type])
+		$global_listing_all_ar[$type]=$this->byKey("SELECT * FROM `".DB_USER."`.`list` WHERE (`orgSl`='10000000' OR `orgSl`='$userInfo_ar[orgSl]') AND `type`='$type' AND `st`='act'", "keyTxt");
+		
+		$global_listing_all_ar[$type]['$key'][$col];
+	}
 }
 $query		= new query;
 ?>
