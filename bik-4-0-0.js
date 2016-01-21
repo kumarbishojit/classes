@@ -2,7 +2,6 @@
 window.onerror=function(msg, url, linenumber){
 	alert('Error message:\n'+msg+'\n\nURL: '+url+'\n\nLine Number: '+linenumber)
 }
-
 //--Collect Object By ID------------------
 function objId(id){
 	if(!document.getElementById(id)){
@@ -12,8 +11,6 @@ function objId(id){
 	else
 	return document.getElementById(id);
 }
-
-
 //##Build Pop-Start########################################################################
 var title="Title";
 function buildPop(id, actionLink, parameters){
