@@ -31,6 +31,26 @@ class buildHtml{
 		
 		return "$prev <select name='pn_op' id='pn_op' class=\"btn btn-small btn-success\" onchange=\"".str_replace("\$val", "'+value+'", $js)."\" style='width:120px;'>$op</select> $next";
 	}
+	function radio_ar1($array, $name, $head='Select', $def=false, $attr=false, $extra_row=false){
+		if($array)
+		foreach($array as $key=>$val){
+			$op .="<label><input type=\"radio\" name=\"$name\" id=\"$name\" value=\"".$key."\" ".($def==$key?"checked=\"checked\"":"")." /> ".$val."</label> <br>";
+		}
+		else
+		return "---";
+		
+		return "<div $attr>$op $extra_row</div>";
+	}
+	function radio_ar2($array, $val_key, $title_key, $name, $head='Select', $def=false, $attr=false, $extra_row=false){
+		if($array)
+		foreach($array as $key=>$val_ar){
+			$op .="<label><input type=\"radio\" name=\"$name\" value=\"".$val_ar[$val_key]."\" ".($def==$val_ar[$val_key]?"checked=\"checked\"":"")." /> ".$val_ar[$title_key]."</label> <br>";
+		}
+		else
+		return "---";
+		
+		return "<div $attr>$op $extra_row</div>";
+	}
 	function select_ar1($array, $name, $head='Select', $def=false, $attr=false, $extra_row=false){
 		if($head)
 		$op .="<option value=''>$head</option>";
