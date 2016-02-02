@@ -34,7 +34,7 @@ class buildHtml{
 	function radio_ar1($array, $name, $head='Select', $def=false, $attr=false, $extra_row=false){
 		if($array)
 		foreach($array as $key=>$val){
-			$op .="<label><input type=\"radio\" name=\"$name\" id=\"$name\" value=\"".$key."\" ".($def==$key?"checked=\"checked\"":"")." /> ".$val."</label> <br>";
+			$op .="<label><input type=\"radio\" name=\"$name\" id=\"$key\" value=\"".$key."\" ".($def==$key?"checked=\"checked\"":"")." /> ".$val."</label> <br>";
 		}
 		else
 		return "---";
@@ -44,7 +44,7 @@ class buildHtml{
 	function radio_ar2($array, $val_key, $title_key, $name, $head='Select', $def=false, $attr=false, $extra_row=false){
 		if($array)
 		foreach($array as $key=>$val_ar){
-			$op .="<label><input type=\"radio\" name=\"$name\" value=\"".$val_ar[$val_key]."\" ".($def==$val_ar[$val_key]?"checked=\"checked\"":"")." /> ".$val_ar[$title_key]."</label> <br>";
+			$op .="<label><input type=\"radio\" name=\"$name\" id=\"$key\" value=\"".$val_ar[$val_key]."\" ".($def==$val_ar[$val_key]?"checked=\"checked\"":"")." /> ".$val_ar[$title_key]."</label> <br>";
 		}
 		else
 		return "---";
