@@ -253,12 +253,26 @@ class convert{
                 return $token;
         }
 	function cleanStr($string) {
-	   $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
-	   $string = str_replace('--', '-', $string); // Replaces all spaces with hyphens.
-	   $string = str_replace('--', '-', $string); // Replaces all spaces with hyphens.
-	
-	   return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+		$string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
+		$string = str_replace('--', '-', $string); // Replaces all spaces with hyphens.
+		$string = str_replace('--', '-', $string); // Replaces all spaces with hyphens.
+		
+		return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
 	}
+	function longtext2emails($longText){
+		//$pattern = '/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i';
+		$pattern = '/[a-z\d._%+-]+@[a-z\d.-]+\.[a-z]{2,4}\b/i';
+		
+		preg_match_all($pattern, $email, $out_ar);
+		
+		foreach($out_ar[0] as $email_txt){
+			$email_txt=strtolower($email_txt);
+			$out2_ar[$email_txt]=$email_txt;
+		}
+		
+		return $out2_ar;
+	}
+
 }
 $convert		= new convert; 
 ?>
