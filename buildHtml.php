@@ -77,6 +77,44 @@ class buildHtml{
 		
 		return "<select name='$name' $attr>$op $extra_row</select>";
 	}
+	
+	
+	
+	//--Need Rechack
+	function checkbox_ar1($array_ar, $nameAr, $defAsHash=false, $attr=false, $extra_row=false){
+		$def_ar=explode("#", $defAsHash);
+		$def_ar=array_filter($def_ar);
+		
+		if($array_ar)
+		foreach($array_ar as $key=>$val){
+			$op .="<li><label><input type=\"checkbox\" name=\"".$nameAr."[]\" value=\"".$val."\" ".(in_array_ar($val, $def_ar) || $defAsStr=="all"?"checked=\"checked\"":"")." $attr> ".$val_ar[$title_key]."</label></li>";
+		}
+		else{
+			$op .="---";
+		}
+		
+		if($extra_row) 
+		$extra_row="<li><label>$extra_row</label></li>";
+		
+		return "<ul id=\"$name_ar\" class=\"form-control\">".$op.$extra_row."</ul>";
+	}
+	function checkbox_ar2($array_2d_ar, $val_key, $title_key, $nameAr, $defAsHash=false, $attr=false, $extra_row=false){
+		$def_ar=explode("#", $defAsHash);
+		$def_ar=array_filter($def_ar);
+		
+		if($array_2d_ar)
+		foreach($array_2d_ar as $key=>$val_ar){
+			$op .="<li><label><input type=\"checkbox\" name=\"".$nameAr."[]\" value=\"".$val_ar[$val_key]."\" ".(in_array_2d_ar($val_ar[$val_key], $def_ar) || $defAsStr=="all"?"checked=\"checked\"":"")." $attr> ".$val_ar[$title_key]."</label></li>";
+		}
+		else{
+			$op .="---";
+		}
+		
+		if($extra_row) 
+		$extra_row="<li><label>$extra_row</label></li>";
+		
+		return "<ul id=\"$name_ar\" class=\"form-control\">".$op.$extra_row."</ul>";
+	}
 }
 $buildHtml 		= new buildHtml;
 ?>
