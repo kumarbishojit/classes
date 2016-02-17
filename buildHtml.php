@@ -115,6 +115,16 @@ class buildHtml{
 		
 		return "<ul id=\"$name_ar\" class=\"form-control\">".$op.$extra_row."</ul>";
 	}
+	function selectLoop($from, $to, $titlePrefix, $name, $head='Select', $def=false, $attr=false, $extra_row=false){
+		if($head)
+		$op .="<option value=''>$head</option>";
+		
+		for($i=$from; $i<=$to; $i++){
+			$op .="<option value='$i' ".($def==$i?"selected='selected'":"").">$titlePrefix".$i."</option>";
+		}
+		
+		return "<select name='$name' $attr>$op $extra_row</select>";
+	}
 }
 $buildHtml 		= new buildHtml;
 ?>
