@@ -69,6 +69,19 @@ class tm{
 		
 		return $convert->date2int("01/01/".($year+1))-1;
 	}
+	function prevMonthDate($inDate){
+		global $convert;
+		
+		$d=substr($inDate, 0, 2);
+		
+		$monyhStartTime=$convert->date2int("01/".substr($inDate, 3))-1;
+		$preD=date("d", $monyhStartTime);
+		
+		if($d>$preD)
+		$d=$preD;
+		
+		return $d."/".date("m/Y", $monyhStartTime);
+	}
 }
 $tm		= new tm;
 ?>
