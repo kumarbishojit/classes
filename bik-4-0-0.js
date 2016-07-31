@@ -2,6 +2,13 @@
 window.onerror=function(msg, url, linenumber){
 	alert('Error message:\n'+msg+'\n\nURL: '+url+'\n\nLine Number: '+linenumber)
 }
+function alertVar(object){
+	var output = '';
+	for (var property in object) {
+		output += property + ': ' + object[property]+';\n';
+	}
+	alert(output);
+}
 //--Collect Object By ID------------------
 function objId(id){
 	if(!document.getElementById(id)){
