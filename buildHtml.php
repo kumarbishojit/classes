@@ -94,7 +94,7 @@ class buildHtml{
 		
 		return "<select name='$name' $attr>$op $extra_row</select>";
 	}
-	function checkbox_ar1($array_ar, $nameAr, $defAsHash=false, $attr=false, $extra_row=false){
+	function checkbox_ar1($array_ar, $nameAr, $defAsHash=false, $uiAttr=false, $extra_row=false){
 		$def_ar=explode("#", $defAsHash);
 		$def_ar=array_filter($def_ar);
 		
@@ -109,9 +109,9 @@ class buildHtml{
 		if($extra_row) 
 		$extra_row="<li><label>$extra_row</label></li>";
 		
-		return "<ul id=\"$nameAr\" class=\"form-control\">".$op.$extra_row."</ul>";
+		return "<ul id=\"$nameAr\" uiAttr>".$op.$extra_row."</ul>";
 	}
-	function checkbox_ar2($array, $val_key, $title_key, $nameAr, $defAsHash=false, $attr=false, $extra_row=false){
+	function checkbox_ar2($array, $val_key, $title_key, $nameAr, $defAsHash=false, $uiAttr=false, $extra_row=false){
 		$def_ar=explode("#", $defAsHash);
 		$def_ar=array_filter($def_ar);
 		
@@ -126,7 +126,7 @@ class buildHtml{
 		if($extra_row) 
 		$extra_row="<li><label>$extra_row</label></li>";
 		
-		return "<ul id=\"$nameAr\" class=\"form-control\">".$op.$extra_row."</ul>";
+		return "<ul id=\"$nameAr\" uiAttr>".$op.$extra_row."</ul>";
 	}
 	function radio_ar1($array, $name, $head='Select', $def=false, $attr=false, $extra_row=false){
 		//if($head)
