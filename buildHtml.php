@@ -111,6 +111,23 @@ class buildHtml{
 		
 		return "<ul id=\"$name_ar\" class=\"form-control\">".$op.$extra_row."</ul>";
 	}
+	function checkbox_ar2($array, $val_key, $title_key, $nameAr, $defAsHash=false, $attr=false, $extra_row=false){
+		$def_ar=explode("#", $defAsHash);
+		$def_ar=array_filter($def_ar);
+		
+		if($array)
+		foreach($array as $key=>$val_ar){
+			$op .="<li><label><input type=\"checkbox\" name=\"".$nameAr."[".$val_ar[$val_key]."]\" value=\"".$val_ar[$val_key]."\" ".(in_array($val_ar[$val_key], $def_ar) || $defAsHash=="all"?"checked=\"checked\"":"")." $attr> ".$val_ar[$title_key]."</label></li>";
+		}
+		else{
+			$op .="---";
+		}
+		
+		if($extra_row) 
+		$extra_row="<li><label>$extra_row</label></li>";
+		
+		return "<ul id=\"$name_ar\" class=\"form-control\">".$op.$extra_row."</ul>";
+	}
 	function radio_ar1($array, $name, $head='Select', $def=false, $attr=false, $extra_row=false){
 		//if($head)
 		//$op .="<option value=''>$head</option>";
