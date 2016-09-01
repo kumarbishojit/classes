@@ -272,7 +272,12 @@ class convert{
 		
 		return $out2_ar;
 	}
-
+	function wordSpilet($in, $start, $number){
+		$in_ar=explode(" ", $in);
+		$in2_ar=array_slice($in_ar, $start, $number);
+		if(sizeof($in_ar)>$number) $in2_ar[]="...";
+		return implode(" ", $in2_ar);
+	}
 }
 $convert		= new convert; 
 ?>
