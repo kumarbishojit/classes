@@ -59,8 +59,6 @@ class buildHtml{
 		foreach($array as $key=>$val){
 			$op .="<option value='$key' ".($def==$key?"selected='selected'":"").">$val</option>";
 		}
-		else
-		return "---";
 		
 		return "<select name='$name' $attr>$op $extra_row</select>";
 	}
@@ -72,25 +70,6 @@ class buildHtml{
 		foreach($array as $key=>$val_ar){
 			$op .="<option value='".$val_ar[$val_key]."' ".($def==$val_ar[$val_key]?"selected='selected'":"").">".$val_ar[$title_key]."</option>";
 		}
-		else
-		return "---";
-		
-		return "<select name='$name' $attr>$op $extra_row</select>";
-	}
-	
-	
-	
-	//--Need Rechack
-	function select_ar2($array, $val_key, $title_key, $name, $head='Select', $def=false, $attr=false, $extra_row=false){
-		if($head)
-		$op .="<option value=''>$head</option>";
-		
-		if($array)
-		foreach($array as $key=>$val_ar){
-			$op .="<option value='".$val_ar[$val_key]."' ".($def==$val_ar[$val_key]?"selected='selected'":"").">".$val_ar[$title_key]."</option>";
-		}
-		else
-		return "---";
 		
 		return "<select name='$name' $attr>$op $extra_row</select>";
 	}
