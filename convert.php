@@ -244,11 +244,11 @@ class convert{
 		return mysql_real_escape_string($input);
 	}
 	function token($length){
-                $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                $codeAlphabet = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789";
                 $codeAlphabet_ar=str_split($codeAlphabet);
                
                 for($i=0; $i<$length; $i++){
-                	$token .= $codeAlphabet_ar[rand(0, 35)];
+                	$token .= $codeAlphabet_ar[rand(0, 61)];
                 }
                 return $token;
         }
