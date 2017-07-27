@@ -80,6 +80,33 @@ class query{
 			}
 		}
 	}
+	function updateInc($table, $fields_ar, $sl){
+		global $msg, $l;
+		
+		if(!$table){
+			$msg="No Table Name on query->updateInc";
+			return false;
+		}
+		else if(!is_array($fields_ar)){
+			$msg="Post Error on query->updateInc";
+			return false;
+		}
+		else{
+			//--Creating Queryes
+			foreach($fields_ar as $key => $val){
+				$q1_ar[]="`$key`=$key + ".(mysql_real_escape_string($val)*1)."";
+			}
+			//--Query Action
+			if(mysql_query($l="UPDATE `$table` SET ".implode(", ", $q1_ar)." WHERE `sl`='$sl';")){
+				$msg="OK";
+				return true;
+			}
+			else{
+				$msg="MySql Query Error on query->update";
+				return false;
+			}
+		}
+	}
 	function insertOne($table, $post_ar){
 		global $msg, $l;
 		
