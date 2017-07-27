@@ -80,6 +80,55 @@ class query{
 			}
 		}
 	}
+	function updateAll($table, $post_all_ar, $errorLog=true){
+		global $msg, $l;
+		
+		if($post_all_ar)
+		foreach($post_all_ar as $sl => $det_ar){
+			$sl_ar[$sl]=$sl;
+		}
+		
+		if(!$table){
+			$msg="No Table Name on query->updateAll";
+			return false;
+		}
+		else if(!is_array($post_all_ar)){
+			$msg="Post Error on query->updateAll";
+			return false;
+		}
+		else if(!$row_info_ar=$this->byKey("SELECT * FROM `$table` WHERE `sl` IN('".implode("', '", $sl_ar)."')", "sl")){
+			$msg="Nothing To Update on query->updateAll";
+			return false;
+		}
+		else{
+			
+			//--
+			if($post_all_ar)
+			foreach($post_all_ar as $sl => $det_ar){
+				if($det_ar)
+				foreach($det_ar as $key => $val){
+					$keyVal_all_ar[$key][]="WHEN `sl`='$sl' THEN '".mysql_real_escape_string($val)."'";
+				}
+			}
+			
+			//--Creating Queryes
+			if($keyVal_all_ar)
+			foreach($keyVal_all_ar as $key => $caseQuery_ar){
+				$setQuery_ar[]="`$key` = (CASE ".implode(" ", $caseQuery_ar)." END)";
+			}
+			
+			//--Query Action
+			if(mysql_query($l="UPDATE `$table` SET ".implode(", ", $setQuery_ar)." WHERE `sl` IN('".implode("', '", $sl_ar)."')")){
+				$msg="OK";
+				return true;
+			}
+			else{
+				$this->saveLogErrors($l);
+				$msg="MySql Query Error on query->updateAll";
+				return false;
+			}
+		}
+	}
 	function updateInc($table, $fields_ar, $sl){
 		global $msg, $l;
 		
@@ -231,6 +280,28 @@ class query{
 		$in_ar['tsl']=0;
 		$in_ar['oldVal']=$message;
 		$this->insertOne(DB_USER."`.`history", $in_ar);
+	}
+	function saveLogErrors($sqlString){
+		$debug_all_ar=debug_backtrace();
+		
+		foreach($debug_all_ar as $sl => $det_ar){
+			$in_all_ar[$sl]['indexSl']	=$sl;
+			$in_all_ar[$sl]['phpSelf']		=$det_ar['file'];
+			$in_all_ar[$sl]['lineNo']		=$det_ar['line'];
+			$in_all_ar[$sl]['class']		=$det_ar['class'];
+			$in_all_ar[$sl]['function']		=$det_ar['function'];
+			$in_all_ar[$sl]['sqlString']	=$sqlString;
+		}
+		$this->insertAll(DB_USER."`.`log_Errors", $in_all_ar);
+	}
+	function saveLogAutoUpdate($tbl, $col_ar, $countRow){
+		foreach($col_ar as $sl => $col){
+			$in_ar['tbl']			=$tbl;
+			$in_ar['colJson']		=json_encode($col_ar);
+			$in_ar['countRow']		=$countRow;
+		}
+
+		$this->insertOne(DB_USER."`.`log_AutoUpdate", $in_ar);
 	}
 	function listAllGlobal($type_hash){  //  #education#abc#def
 		global $global_listing_all_ar, $userInfo_ar, $l;
