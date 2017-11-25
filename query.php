@@ -30,6 +30,22 @@ class query{
 			return false;
 		}
 	}
+	function byKeyRemote($queryStr, $key="", $url, $securityBase64){
+		global $pdo, $msg, $l;
+		
+		//--Sending to PC Detecting Server
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, "security=$securityBase64&queryStr=".urlencode($l=$queryStr)."&key=".urlencode($key));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		
+		//--Collecting from PC Detecting Server
+		$out = curl_exec ($ch);
+		curl_close ($ch);
+		
+		return json_decode($out, true);
+	}
 	function byKeySet($query_str, $key="sl"){
 		$all_ar=$this->byKey($query_str);
 		return $this->array2set($all_ar, $key);
